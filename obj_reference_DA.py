@@ -41,7 +41,23 @@ if __name__ == '__main__':
     
     args = vars(parser.parse_args())
     
-    dataDir    = args['data']
-    runList    = args['list']
-    configFile = args['config']
+    dataDir      = args['data']
+    runListId    = args['list']
+    configFileId = args['config']
     
+    runListP = open(runListId, 'r')
+    
+    runList = []
+    for line in runListP:
+        line = line.strip()
+        runList.append(line)
+    
+    for runId in runList:
+        run               = dataDir + '/' + runId
+        objectReferenceId = run + '/' + 'object-reference.xml'
+        DAId              = run + '/' + 'DA.xml'
+        
+        objWords, objAnnotations, objNotes = read_complex(objectReferenceId)
+        DAWords,  DAAnnotations,  DANodes  = read_simple(DAId)
+        
+        
