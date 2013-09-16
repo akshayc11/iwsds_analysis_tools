@@ -19,14 +19,14 @@ if __name__ == '__main__':
     
     parser.add_argument('data',
                         metavar='<data directory>',
-                        description='''
+                        help='''
                         directory where all the annotations 
                         are stored
                         ''')
     
     parser.add_argument('list',
                         metavar='<run list>',
-                        description='''
+                        help='''
                         list of all the runs for which 
                         analysis is to be performed
                         ''')
@@ -34,7 +34,7 @@ if __name__ == '__main__':
     parser.add_argument('--config',
                         type=str,
                         default=''
-                        description='''
+                        help='''
                         file where other optional configurations
                         are stored
                         ''');
