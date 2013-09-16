@@ -14,7 +14,7 @@ if __name__ == '__main__':
     
     parser = argparse.ArgumentParser(description='''
     Script to perform an analysis on the object references 
-    vs DA annotations. 
+    vs domain annotations. 
     ''')
     
     parser.add_argument('data',
@@ -52,12 +52,43 @@ if __name__ == '__main__':
         line = line.strip()
         runList.append(line)
     
+    analysisCount = dict()
+        domainList = []
+        for domainLabel in domainLabels:
+            domainName = domainLabel.name
+            domainList.append(domainName)
+        
+        domainList.sort()
+        
+        objSet = set()
+        for objLabel in objectReferenceComplexLabels:
+            objName = (objLabel.name).split(' (')
+            objSet.add(objName)
+        
+        objList =list(objSet)
+        objList.sort()
+        
+        gestureList = ['(Gesture)', '(No Gesture)']
+    
+    # Create the analysisCount structure
+    for objName in objList:
+        analysisCount[objName] = dict()
+        
+        for gesture in gestureList:
+            analysisCount[objName][gesture] = dict()
+            
+            for domainName in domainList:
+                analysisCount[objName][gesture][domainName] = 0
+            
+        
+    # Update analysisCount from all the runs
     for runId in runList:
         run               = dataDir + '/' + runId
         objectReferenceId = run + '/' + 'object-reference.xml'
-        DAId              = run + '/' + 'DA.xml'
+        domainId          = run + '/' + 'DA.xml'
         
         objWords, objAnnotations, objNotes = read_complex(objectReferenceId)
-        DAWords,  DAAnnotations,  DANodes  = read_simple(DAId)
+        domWords, domAnnotations, domNodes = read_simple(domainId)
+        
         
         
