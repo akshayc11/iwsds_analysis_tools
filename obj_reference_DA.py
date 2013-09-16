@@ -45,6 +45,3 @@ if __name__ == '__main__':
     runList    = args['list']
     configFile = args['config']
     
-    
-    
-    
