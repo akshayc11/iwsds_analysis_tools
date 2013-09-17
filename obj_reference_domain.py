@@ -124,12 +124,12 @@ if __name__ == '__main__':
                     totalCount += 1
                 except:
                     errCount += 1
-                    print "error for:", dom
-    
+                    print runId,": error for:", objAnnotation.name
+                    
     for objName in objList:
         for gesture in gestureList:
             for domainName in domainList:
-                print objName, gesture, domainName, analysisCount[objName][gesture][domainName] 
+                print '\t'.join([objName, gesture, domainName, str(analysisCount[objName][gesture][domainName])]) 
     
-    print 'total:', totalCount
-    print 'errors in:', errCount
+    print 'total\t', totalCount
+    print 'errors\t', errCount
