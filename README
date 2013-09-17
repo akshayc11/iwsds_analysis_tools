@@ -1,0 +1,3 @@
+Decryption:
+gpg data.tar.gz.gpg -o data.tar.gz
+Password you should have from mail

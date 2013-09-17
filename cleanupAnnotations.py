@@ -1,4 +1,13 @@
 #!/usr/bin/python
+'''
+cleanUpAnnotations.py
+A helper function that goes through annotations and 
+points out possible errors to be rectified by the user
+
+Author: Akshay Chandrashekaran
+v0.2: detect annotations with words but no label
+v0.1: detect annotations with label but no words
+'''
 
 import read_write_annotation_files as rw
 import sys
@@ -46,15 +55,21 @@ if __name__ == '__main__':
     
     inWords, inAnnots, inNotes = read_annotation(inFileId)
     
-    remList = []
     for i in range(len(inAnnots)):
         inAnnot = inAnnots[i]
         words   = inAnnot.words
-        if len(words) > 0:
+        if len(words) == 0:
+            print 'empty:', inAnnot.name
             continue
-        print inAnnot.name
-        remList.append(i)
-    
+        
+        if inAnnot.label == "":
+            print 'unlabelled:', inAnnot.name
+            continue
+        
+        if Complex == True:
+            if inAnnot.object_parameter=='':
+                print 'possible empty object:', inAnnot.name
+        
     # remList.reverse()
     
     # for rem in remList:
