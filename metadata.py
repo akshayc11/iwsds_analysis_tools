@@ -17,59 +17,62 @@ class metadata:
     This includes: run_id, speakers, channels, some speaker related information
     '''
     
-    inFileID      = ""
-    channel_1     = "l"
-    channel_2     = "r"
-    speaker_1     = "driver"
-    speaker_2     = "copilot"
-    copilot_name  = ""
-    driver_gender = ""
-    run_id        = ""
-    tree          = []
-    attribs       = {}
-    driver_id     = ""
-    copilot_id    = ""
-    channels      = {}
+    inFileID       = ""
+    channel_1      = "l"
+    channel_2      = "r"
+    speaker_1      = "driver"
+    speaker_2      = "copilot"
+    copilot_name   = ""
+    copilot_gender = ""
+    driver_gender  = ""
+    run_id         = ""
+    tree           = []
+    attribs        = {}
+    driver_id      = ""
+    copilot_id     = ""
+    channels       = {}
     
-    verbosity     = 0
+    verbosity      = 0
     
     def __init__(self, verbosity=0):
         '''
         Initialize the metadata object
         '''
-        self.verbosity     = verbosity
-        self.inFileID      = ""
-        self.channel_1     = "1"
-        self.channel_2     = "2"
-        self.speaker_1     = "driver"
-        self.speaker_2     = "copilot"
-        self.copilot_name  = ""
-        self.driver_gender = ""
-        self.run_id        = ""
-        self.tree          = []
-        self.attribs       = {}
-        self.driver_id     = ""
-        self.copilot_id    = ""
-        self.channels      = {}
+        self.verbosity      = verbosity
+        self.inFileID       = ""
+        self.channel_1      = "1"
+        self.channel_2      = "2"
+        self.speaker_1      = "driver"
+        self.speaker_2      = "copilot"
+        self.copilot_name   = ""
+        self.copilot_gender = 
+        self.driver_gender  = ""
+        self.run_id         = ""
+        self.tree           = []
+        self.attribs        = {}
+        self.driver_id      = ""
+        self.copilot_id     = ""
+        self.channels       = {}
         return None
     
     def Clear(self):
         '''
         Clear the metadata object
         '''
-        self.inFileID      = ""
-        self.channel_1     = "l"
-        self.channel_2     = "r"
-        self.speaker_1     = "driver"
-        self.speaker_2     = "copilot"
-        self.copilot_name  = ""
-        self.driver_gender = ""
-        self.run_id        = ""
-        self.tree          = []
-        self.attribs       = {}
-        self.driver_id     = ""
-        self.copilot_id    = ""
-        self.channels      = {}
+        self.inFileID       = ""
+        self.channel_1      = "l"
+        self.channel_2      = "r"
+        self.speaker_1      = "driver"
+        self.speaker_2      = "copilot"
+        self.copilot_name   = ""
+        self.copilot_gender = ""
+        self.driver_gender  = ""
+        self.run_id         = ""
+        self.tree           = []
+        self.attribs        = {}
+        self.driver_id      = ""
+        self.copilot_id     = ""
+        self.channels       = {}
         return True
     
     def Read(self, inFileID, flipChannel=False):
@@ -107,6 +110,9 @@ class metadata:
         if self.attribs.has_key('driver_gender'):
             self.driver_gender         = self.attribs['driver_gender']
         
+        if self.attribs.has_key('copilot_gender'):
+            self.copilot_gender        = self.attribs['copilot_gender']
+        
         if self.attribs.has_key('run_id'):
             self.run_id = self.attribs['run_id']
         
@@ -118,6 +124,12 @@ class metadata:
         key as speaker id and value as channel number
         '''
         return self.channels
+    
+    def get_copilot_gender(self):
+        '''
+        return copilot gender
+        '''
+        return self.copilot_gender
     
     def get_copilot_name(self):
         '''

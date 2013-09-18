@@ -1,10 +1,18 @@
 #!/usr/bin/python
 
+'''
+This tool is used for analysis of object references 
+with respect to gender of the diver and the copilot
+'''
+
+
 import argparse
 import os
 import read_write_annotation_files as rw
 import annotation_schema
 import sys
+import metadata
+
 read_complex  =  rw.read_annotation_file
 read_simple   =  rw.read_simple_annotation_file
 write_complex =  rw.write_annotation_file
@@ -93,7 +101,7 @@ if __name__ == '__main__':
         print runId
         run               = dataDir + '/' + runId
         objectReferenceId = run + '/' + 'object-reference.xml'
-        domainId          = run + '/' + 'domain-annotated.xml'
+        metadataId        = run + '/' + 'metadata.xml'
         
         objWords, objAnnotations, objNotes = read_complex(objectReferenceId)
         domWords, domAnnotations, domNodes = read_simple(domainId)
