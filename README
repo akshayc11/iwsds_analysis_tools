@@ -1,3 +1,5 @@
 Decryption:
-gpg data.tar.gz.gpg -o data.tar.gz
+gpg data.tar.gz.gpg
+will decrypt in same folder. move to appropriate location ebfore uncompressing
+
 Password you should have from mail
