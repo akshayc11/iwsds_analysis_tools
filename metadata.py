@@ -45,7 +45,7 @@ class metadata:
         self.speaker_1      = "driver"
         self.speaker_2      = "copilot"
         self.copilot_name   = ""
-        self.copilot_gender = 
+        self.copilot_gender = ""
         self.driver_gender  = ""
         self.run_id         = ""
         self.tree           = []

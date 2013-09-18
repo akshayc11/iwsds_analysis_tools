@@ -61,17 +61,12 @@ if __name__ == '__main__':
         line = line.strip()
         runList.append(line)
     
-    domainLabels = annotation_schema.domainLabels
     objectReferenceComplexLabels = annotation_schema.objectReferenceComplexLabels
     
     analysisCount = dict()
-    domainList = []
-    for domainLabel in domainLabels:
-        domainName = domainLabel.name
-        domainList.append(domainName)
-        
-    domainList.sort()
-    print domainList    
+    runAnalysisCount = dict()
+    
+    genderList = ['female', 'male']
     objSet = set()
     for objLabel in objectReferenceComplexLabels:
         objName = (objLabel.name).split(' (')[0]
@@ -86,25 +81,38 @@ if __name__ == '__main__':
     # Create the analysisCount structure
     for objName in objList:
         analysisCount[objName] = dict()
-        
+        runAnalysisCount[objName] = dict()
         for gesture in gestureList:
             analysisCount[objName][gesture] = dict()
-            
-            for domainName in domainList:
-                analysisCount[objName][gesture][domainName] = 0
-            
+            runAnalysisCount[objName][gesture] = dict()
+            for gen in genderList:
+                analysisCount[objName][gesture][gen] = 0
+                runAnalysisCount[objName][gesture][gen] = 0
+                
     
     # Update analysisCount from all the runs
     totalCount = 0
     errCount   = 0
     for runId in runList:
-        print runId
+        for objName in objList:
+            for gesture in gestureList:
+                for gen in genderList:
+                    runAnalysisCount[objName][gesture][gen] = 0
+        runCount = 0
         run               = dataDir + '/' + runId
         objectReferenceId = run + '/' + 'object-reference.xml'
         metadataId        = run + '/' + 'metadata.xml'
         
+        metadataObj = metadata.metadata()
+        metadataObj.Read(metadataId)
+        copilot_gender = metadataObj.get_copilot_gender()
+        driver_gender  = metadataObj.get_driver_gender()
+        gender = dict()
+        gender['driver']  = driver_gender
+        gender['copilot'] = copilot_gender
+        print runId, 'driver:', driver_gender, 'copilot:', copilot_gender
+        
         objWords, objAnnotations, objNotes = read_complex(objectReferenceId)
-        domWords, domAnnotations, domNodes = read_simple(domainId)
         
         
         for objAnnotation in objAnnotations:
@@ -112,32 +120,33 @@ if __name__ == '__main__':
             gesture      = ''.join(objLabel.partition('(')[1:])
             label        = objLabel.partition('(')[0].strip()
             objWords     = objAnnotation.words
-            domSet = set()
+            spkSet = set()
             for word in objWords:
-                for domAnnotation in domAnnotations:
-                    wordNames = [wrd.name for wrd in domAnnotation.words]
-                    if word.name in wordNames:
-                        #print domAnnotation.label
-                        domSet.add(domAnnotation.label)
-                    
-                
+                spkSet.add(word.speaker)
             
-            domList = sorted(list(domSet))
-            if len(domList) == 0:
-                domList.append('OOD')
-            #print gesture, label,domList 
-            for dom in domList:
+            spkList = sorted(list(spkSet))
+            genList = [gender[spk] for spk in spkList]
+            for gen in genList:
                 try:
-                    analysisCount[label][gesture][dom] += 1
+                    analysisCount[label][gesture][gen] += 1
+                    runAnalysisCount[label][gesture][gen] += 1
+                    
                     totalCount += 1
                 except:
                     errCount += 1
                     print runId,": error for:", objAnnotation.name
-                    
-    for objName in objList:
-        for gesture in gestureList:
-            for domainName in domainList:
-                print '\t'.join([objName, gesture, domainName, str(analysisCount[objName][gesture][domainName])]) 
+        
+        for gen in genderList:
+            for objName in objList:
+                for gesture in gestureList:
+                    print '\t'.join(['',objName, gesture, gen, str(analysisCount[objName][gesture][gen])])
     
     print 'total\t', totalCount
     print 'errors\t', errCount
+    for gen in genderList:
+        for objName in objList:
+            for gesture in gestureList:
+                print '\t'.join([objName, gesture, gen, str(analysisCount[objName][gesture][gen])]) 
+    
+    
+    
