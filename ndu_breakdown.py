@@ -20,7 +20,7 @@ read_simple   =  rw.read_simple_annotation_file
 write_complex =  rw.write_annotation_file
 write_simple  =  rw.write_simple_annotation_file
 
-data_dir = "/home/cohend/iwsds_data/data/"
+data_dir = "../data/"
 run_ids = ['CESAR_Jun-Sun-3-09-09-17-2012', 'CESAR_Jun-Sun-3-11-10-36-2012', 'CESAR_Jun-Sun-3-13-01-47-2012', 'CESAR_Jun-Thu-21-09-08-54-2012', 'CESAR_Jun-Thu-21-11-04-52-2012', 'CESAR_Jun-Thu-21-13-30-23-2012', 'CESAR_Jun-Thu-21-17-12-36-2012', 'CESAR_May-Fri-25-14-55-42-2012', 'CESAR_May-Fri-25-17-05-43-2012', 'CESAR_May-Fri-25-19-15-14-2012', 'CESAR_May-Thu-17-11-36-14-2012', 'CESAR_May-Thu-31-09-17-54-2012', 'CESAR_May-Thu-31-11-21-35-2012', 'CESAR_May-Thu-31-15-06-55-2012', 'CESAR_May-Tue-29-13-06-47-2012']
 
 ndu_da_map = dict()

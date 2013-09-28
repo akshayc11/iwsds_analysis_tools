@@ -32,10 +32,18 @@ Finally, we discuss our examination of the data set to find evidence of several 
 * Aspects of Situated Interaction
 
 ** Open World
+ - references to objects not on the map
+ - histogram of number of references to different objects (ignore other / unknown)
+
 
 ** Assistant vs. Tool
+The following are more examples than quantitative evidence:
+ - gas notification -> copilot offer directions (driver doesn’t ask)
+ - offering to give directions to the meeting without having been asked
+ - messaging initiated by copilot
 
-
+Possibly an interesting chart could be made from this:
+ - overlap of domains / follow-up of domains / carry-over of references across domains
 
 * Conclusion
 
