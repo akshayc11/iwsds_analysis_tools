@@ -1,0 +1,44 @@
+#+TITLE: IWSDS Draft Paper
+#+AUTHOR: David Cohen, Akshay Chandrashekaran, Ian Lane, Antoine Raux
+
+
+* Abstract
+This paper introduces the HRI-CMU Corpus of Situated In-Car Interactions, a multi-modal corpus that put participants through task-oriented scenarios in a car on Moffett Field, CA.
+We describe the harware used for collection and the scenarios that subjects took part in.
+We describe the annotation that was performed on the data, which focused on grounded object references across all domains and discourse structure within the navigation task, and give an overview of the major corpus statistics.
+Finally, we discuss our examination of the data set to find evidence of several features we believe are particular to situated assistant dialogues.
+
+* Keywords
+* Introduction
+* Hardware
+* Scenarios
+* Annotation
+* Corpus Overview
+** Overall Statistics
+ - hours of speech
+ - hours of working GPS
+ - breakdown of object references by class, anything else interesting
+ - breakdown of speech statistics by male/female driver (of anything that's interesting)
+ - breakdown of speech statistics by copilot (of anything that's interesting)
+
+** Object References
+ - Breakdown gesture by reference class, 
+ - Give common strings used to refer to certain types of objects, some metric of the complexity of these references
+   Are we gonna include Yipei and Alan Black as authors?
+
+** Navigation Analysis
+ - Common DA sequences
+
+* Aspects of Situated Interaction
+
+** Open World
+
+** Assistant vs. Tool
+
+
+
+* Conclusion
+
+
+
+

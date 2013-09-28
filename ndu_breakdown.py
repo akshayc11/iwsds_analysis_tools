@@ -117,6 +117,56 @@ for i in range(10):
     print sequence_counter[common_sequences[i]], common_sequences[i]
 
 
+def subseq(small_seq, large_seq):
+    for i in range(len(large_seq) - len(small_seq)+1):
+        for j in range(len(small_seq)):
+            if not small_seq[j] == large_seq[i+j]:
+                break
+            if j == len(small_seq) - 1:
+                return True
+    return False
+
+
+print
+C_new = dict()
+for k in sequence_counter.keys():
+    if subseq(('Ask Clarification (Gesture)',), k):
+        C_new[k] = sequence_counter[k]
+# print C_new
+print sum(C_new.values())
+
+print
+C_new = dict()
+for k in sequence_counter.keys():
+    if subseq(('Give Clarification (No Gesture)', 'Ask Clarification (Gesture)'), k) or subseq(('Give Clarification (Gesture)', 'Ask Clarification (Gesture)'), k):
+        C_new[k] = sequence_counter[k]
+# print C_new
+print sum(C_new.values())
+# for k in C_new:
+#     print C_new[k], k
+
+print
+C_new = dict()
+for k in sequence_counter.keys():
+    if subseq(('Direct (No Gesture)', 'Ask Clarification (Gesture)'), k) or subseq(('Direct (Gesture)', 'Ask Clarification (Gesture)'), k):
+        C_new[k] = sequence_counter[k]
+# print C_new
+print sum(C_new.values())
+# for k in C_new:
+#     print C_new[k], k
+
+
+
+print
+C_new = dict()
+for k in sequence_counter.keys():
+    if subseq(('Ask Clarification (Gesture)',), k) and not ( subseq(('Give Clarification (No Gesture)', 'Ask Clarification (Gesture)'), k) or subseq(('Give Clarification (Gesture)', 'Ask Clarification (Gesture)'), k) or subseq(('Direct (No Gesture)', 'Ask Clarification (Gesture)'), k) or subseq(('Direct (Gesture)', 'Ask Clarification (Gesture)'), k)):
+        C_new[k] = sequence_counter[k]
+# print C_new
+print sum(C_new.values())
+# for k in C_new:
+#     print C_new[k], k
+
 
 
 

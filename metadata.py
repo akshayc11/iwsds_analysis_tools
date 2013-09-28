@@ -9,7 +9,7 @@ of the
 '''
 import xml.etree.ElementTree as etree
 
-class metadata:
+class metadata(object):
     '''
     metadata class:
     Contains all the relevant information of a particular run 
