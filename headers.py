@@ -4,6 +4,12 @@
 #word, utterance, annotation
 
 
+class badGPS:
+    def __init__(self):
+        self.name = ''
+        self.s_time = None
+        self.e_time = None
+    
 class word:
     def __init__(self):
         self.name = ''

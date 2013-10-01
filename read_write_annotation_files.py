@@ -17,6 +17,23 @@ class item:
         return n
 
 
+def write_badGPS_file(badGPSs,filename):
+    '''
+    Write bad GPS annotation file
+    '''
+    doc = minidom.getDOMImplementation().createDocument(None, "BADGPS_FILE", None)
+    top_element = doc.documentElement
+    #Add bad GPS annotations
+    badGPSs_node = doc.createElement('BAD_GPS_SECTIONS')
+    for b in sorted(badGPSs, key=lambda x: x.s_time):
+        n = item('bad_GPS',{'name':b.name,'s_time':b.s_time,'e_time':b.e_time})
+        badGPSs_node.appendChild(n.dom_node(doc))
+    top_element.appendChild(badGPSs_node)
+    
+    #write file
+    doc.writexml(open(filename,'w'), addindent='    ', newl='\n')
+    
+
 def write_annotation_file(words, annotations, notes, filename):
     """Write annotation files for complex annotations"""
     #print dir(minidom)
@@ -81,7 +98,24 @@ def write_simple_annotation_file(words, annotations, notes, filename):
     #write file
     doc.writexml(open(filename,'w'), addindent='    ', newl='\n')
 
-
+def read_badGPS_file(filename):
+    ''' Read bad GPS annotation file'''
+    b_map = dict()
+    badGPSs = []
+    doc = minidom.parse(open(filename, 'r'))
+    top_element = doc.chileNodes[0]
+    badGPSs_node = [n for n in top_element.childNodes if n.nodeName == 'BAD_GPS_SECTIONS'][0]
+    badGPS_items = [n for n in badGPSs_node.childNodes if n.nodeName == 'bad_GPS']
+    for bi in badGPS_items:
+        b = badGPS()
+        b.name   = bi.getAttribute('name')
+        b.s_time = bi.getAttribute('s_time')
+        b.e_time = bi.getAttribute('e_time')
+        badGPSs.append(b)
+        b_map[bi.getAttribute['name']] = b
+    
+    return badGPSs
+        
 def read_annotation_file(filename):
     """Read annotation file for custom DA and object reference annotation program"""
     w_map = dict()
@@ -104,7 +138,7 @@ def read_annotation_file(filename):
         w.speaker = wi.getAttribute('speaker')
         words.append(w)
         w_map[wi.getAttribute('name')] = w
-
+        
     annotation_items = [n for n in annotations_node.childNodes if n.nodeName == 'annotation']
     for ai in annotation_items:
         a = complex_annotation()
@@ -243,6 +277,27 @@ def process_transcript_pair(f_driver='/home/cohend/E_DRIVE/DATA/processed_for_an
     annotations = []
     notes = []
     write_annotation_file(words, annotations, notes, filename)
+
+
+def make_bad_gps_xml(input_file, output_file):
+    badGPSs     = set()
+    annotations = []
+    notes       = []
+    
+    f = open(input_file)
+    i = 0
+    for line in f:
+        line = line.strip()
+        items = line.split('\t')
+        b = badGPS()
+        b.name   = 'badGPS_' + str(i)
+        b.s_time = float(items[0])
+        b.e_time = float(items[1])
+        badGPSs.add(b)
+        i += 1
+    
+
+    write_badGPS_file(badGPSs, output_file)
 
 def process_ctm_trans(input_file, output_file):
     words = set()
