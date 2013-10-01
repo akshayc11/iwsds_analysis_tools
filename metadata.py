@@ -31,9 +31,17 @@ class metadata(object):
     driver_id      = ""
     copilot_id     = ""
     channels       = {}
-    
+    offset         = 0.0
     verbosity      = 0
     
+    def _getOffset(self,offset_str):
+        offset_str = offset_str[1:-1]
+        offset_tuple = [float(comp) for comp in offset_str.split(', ')]
+        offset       = (offset_tuple[0]*60.0) + \
+                       (offset_tuple[1]) + \
+                       (offset_tuple[2]/30.0)
+        
+        return offset
     def __init__(self, verbosity=0):
         '''
         Initialize the metadata object
@@ -53,6 +61,7 @@ class metadata(object):
         self.driver_id      = ""
         self.copilot_id     = ""
         self.channels       = {}
+        self.offset         = 0.0
         return None
     
     def Clear(self):
@@ -115,6 +124,8 @@ class metadata(object):
         
         if self.attribs.has_key('run_id'):
             self.run_id = self.attribs['run_id']
+        
+        self.offset = self._getOffset(self.attribs['audio_start_point'])
         
         return True
     
@@ -194,3 +205,8 @@ class metadata(object):
         return self.copilot_id
     
     
+    def get_offset(self):
+        '''
+        Return the offset of the audio start point 
+        '''
+        return self.offset
